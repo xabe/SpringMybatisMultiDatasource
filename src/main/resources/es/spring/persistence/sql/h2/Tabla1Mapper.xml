@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="es.spring.persistence.h2.Tabla1Mapper">
+
+	<resultMap id="BaseResultMap" type="es.spring.model.Tabla1">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
+		<result column="fecha" property="fecha" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectByExample" resultMap="BaseResultMap">
+		SELECT id, nombre, fecha
+		FROM t_tabla_1
+	</select>
+
+	<insert id="insert" parameterType="es.spring.model.Tabla1" >
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_tabla_1 (nombre,fecha)
+		values (
+		#{nombre,jdbcType=VARCHAR},
+		#{fecha,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+</mapper>
